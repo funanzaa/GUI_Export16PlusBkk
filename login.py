@@ -35,6 +35,8 @@ class Ui_Login(object):
         icon1.addPixmap(QtGui.QPixmap("images/Pass.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.Login)  # Login
+
         self.gridLayout.addWidget(self.pushButton, 2, 0, 1, 1)
         self.lineEdit_username = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit_username.setObjectName("lineEdit_username")
@@ -54,11 +56,21 @@ class Ui_Login(object):
         Login.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Login)
         self.statusbar.setObjectName("statusbar")
-        self.statusbar.showMessage("Please Enter Username & Password")
+        self.statusbar.showMessage("Please Enter Username & Password", 2000)
         Login.setStatusBar(self.statusbar)
 
         self.retranslateUi(Login)
         QtCore.QMetaObject.connectSlotsByName(Login)
+
+    def Login(self):
+        username = self.lineEdit_username.text()
+        passwd = self.lineEdit_password.text()
+
+        if username == 'admin' and passwd == 'demo':
+            self.statusbar.showMessage("Go")
+        else:
+            self.statusbar.showMessage("Username & Password is Wrong", 2000)
+
 
     def retranslateUi(self, Login):
         _translate = QtCore.QCoreApplication.translate
