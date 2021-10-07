@@ -276,7 +276,7 @@
       <string>CHA แฟ้มข้อมูลการเงิน (แบบรายละเอียด) </string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_aef">
+    <widget class="QCheckBox" name="checkBox_aer">
      <property name="geometry">
       <rect>
        <x>413</x>
@@ -570,7 +570,7 @@
      <x>0</x>
      <y>0</y>
      <width>915</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

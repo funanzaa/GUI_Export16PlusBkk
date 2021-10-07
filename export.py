@@ -29,6 +29,9 @@ class Ui_export(object):
         self.checkBox = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox.setGeometry(QtCore.QRect(12, 32, 95, 24))
         self.checkBox.setObjectName("checkBox")
+
+        self.checkBox.stateChanged.connect(self.All_Item_selected)  # checked All
+
         self.checkBox_pat = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox_pat.setGeometry(QtCore.QRect(13, 101, 194, 30))
         font = QtGui.QFont()
@@ -191,7 +194,8 @@ class Ui_export(object):
         font.setWeight(75)
         self.pushButton.setFont(font)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("images/outline_file_upload_black_48dp.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap("images/outline_file_upload_black_48dp.png"), QtGui.QIcon.Mode.Normal,
+                        QtGui.QIcon.State.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setIconSize(QtCore.QSize(50, 20))
         self.pushButton.setAutoDefault(False)
@@ -205,13 +209,14 @@ class Ui_export(object):
         font.setBold(True)
         font.setWeight(75)
         self.dateEdit_from.setFont(font)
-        self.dateEdit_from.setLocale(QtCore.QLocale(QtCore.QLocale.Language.English, QtCore.QLocale.Country.UnitedStates))
+        self.dateEdit_from.setLocale(
+            QtCore.QLocale(QtCore.QLocale.Language.English, QtCore.QLocale.Country.UnitedStates))
         self.dateEdit_from.setCalendarPopup(True)
         self.dateEdit_from.setCurrentSectionIndex(0)
         self.dateEdit_from.setTimeSpec(QtCore.Qt.TimeSpec.LocalTime)
         self.dateEdit_from.setObjectName("dateEdit_from")
 
-        self.dateEdit_from.setDateTime(QtCore.QDateTime.currentDateTime()) # set date from crrent
+        self.dateEdit_from.setDateTime(QtCore.QDateTime.currentDateTime())  # set date from crrent
 
         # print(self.dateEdit_from.text())
 
@@ -259,9 +264,49 @@ class Ui_export(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def All_Item_selected(self):
+        if self.checkBox.isChecked():
+            self.checkBox.setText('Not select All')
+            self.checkBox_ins.setChecked(True)
+            self.checkBox_pat.setChecked(True)
+            self.checkBox_opd.setChecked(True)
+            self.checkBox_orf.setChecked(True)
+            self.checkBox_odx.setChecked(True)
+            self.checkBox_oop.setChecked(True)
+            self.checkBox_ipd.setChecked(True)
+            self.checkBox_irf.setChecked(True)
+            self.checkBox_idx.setChecked(True)
+            self.checkBox_iop.setChecked(True)
+            self.checkBox_cht.setChecked(True)
+            self.checkBox_cha.setChecked(True)
+            self.checkBox_aef.setChecked(True)
+            self.checkBox_adp.setChecked(True)
+            self.checkBox_lvd.setChecked(True)
+            self.checkBox_dru.setChecked(True)
+            self.checkBox_labfu.setChecked(True)
+        else:
+            self.checkBox.setText('select All')
+            self.checkBox_ins.setChecked(False)
+            self.checkBox_pat.setChecked(False)
+            self.checkBox_opd.setChecked(False)
+            self.checkBox_orf.setChecked(False)
+            self.checkBox_odx.setChecked(False)
+            self.checkBox_oop.setChecked(False)
+            self.checkBox_ipd.setChecked(False)
+            self.checkBox_irf.setChecked(False)
+            self.checkBox_idx.setChecked(False)
+            self.checkBox_iop.setChecked(False)
+            self.checkBox_cht.setChecked(False)
+            self.checkBox_cha.setChecked(False)
+            self.checkBox_aef.setChecked(False)
+            self.checkBox_adp.setChecked(False)
+            self.checkBox_lvd.setChecked(False)
+            self.checkBox_dru.setChecked(False)
+            self.checkBox_labfu.setChecked(False)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Export e-Claim v.1.0.0"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Export e-Claim v.1.0.0.01102564"))
         self.groupBox.setTitle(_translate("MainWindow", "16 File"))
         self.checkBox.setText(_translate("MainWindow", "Select All"))
         self.checkBox_pat.setText(_translate("MainWindow", "PAT แฟ้มข้อมูลผู้ป่วยกลาง "))
@@ -275,18 +320,19 @@ class Ui_export(object):
         self.checkBox_cht.setText(_translate("MainWindow", "CHT แฟ้มข้อมูลการเงิน (แบบสรุป)"))
         self.checkBox_cha.setText(_translate("MainWindow", "CHA แฟ้มข้อมูลการเงิน (แบบรายละเอียด) "))
         self.checkBox_aef.setText(_translate("MainWindow", "AER แฟ้มข้อมูลอุบัติเหตุ ฉุกเฉิน และรับส่งเพื่อรักษา "))
-        self.checkBox_adp.setText(_translate("MainWindow", "ADP แฟ้มข้อมูลค่าใช้จ่ายเพิ่ม และบริการที่ยังไม่ได้จัดหมวด "))
+        self.checkBox_adp.setText(
+            _translate("MainWindow", "ADP แฟ้มข้อมูลค่าใช้จ่ายเพิ่ม และบริการที่ยังไม่ได้จัดหมวด "))
         self.checkBox_lvd.setText(_translate("MainWindow", "LVD แฟ้มข้อมูลกรณีที่ผู้ป่วยมีการลากลับบ้าน (Leave day) "))
         self.checkBox_dru.setText(_translate("MainWindow", "DRU แฟ้มข้อมูลการใช้ยา"))
-        self.checkBox_labfu.setText(_translate("MainWindow", "LABFU แฟ้มข้อมูลการตรวจทางห้องปฏิบัติการของผู้ป่วยโรคเรื้อรัง"))
+        self.checkBox_labfu.setText(
+            _translate("MainWindow", "LABFU แฟ้มข้อมูลการตรวจทางห้องปฏิบัติการของผู้ป่วยโรคเรื้อรัง"))
         self.checkBox_iop.setText(_translate("MainWindow", "IOP แฟ้มข้อมูลหัตถการผู้ป่วยใน"))
         self.checkBox_idx.setText(_translate("MainWindow", "IDX มาตรฐานแฟ้มข้อมูลวินิจฉัยโรคผู้ป่วยใน"))
         self.pushButton.setText(_translate("MainWindow", "Export"))
-        self.dateEdit_from.setDisplayFormat(_translate("MainWindow", "dd/MM/yyyy"))
+        self.dateEdit_from.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd"))
         self.label_2.setText(_translate("MainWindow", "To"))
         self.label.setText(_translate("MainWindow", "From"))
-        self.dateEdit_to.setDisplayFormat(_translate("MainWindow", "dd/MM/yyyy"))
-
+        self.dateEdit_to.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd"))
 
 # if __name__ == "__main__":
 #     import sys
