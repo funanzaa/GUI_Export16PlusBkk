@@ -1,5 +1,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QLineEdit
+from export import Ui_export
+
 
 class Ui_Login(object):
     def setupUi(self, Login):
@@ -67,10 +69,19 @@ class Ui_Login(object):
         passwd = self.lineEdit_password.text()
 
         if username == 'admin' and passwd == 'demo':
-            self.statusbar.showMessage("Go")
+            # self.statusbar.showMessage("Go")
+            self.form_export = QtWidgets.QMainWindow()
+            self.ui = Ui_export()
+            self.ui.setupUi(self.form_export)
+            self.form_export.show() # show login
+            Login.hide() #
+
         else:
             self.statusbar.showMessage("Username & Password is Wrong", 2000)
 
+
+    # def closescr(self,):
+    #     Login.hide()
 
     def retranslateUi(self, Login):
         _translate = QtCore.QCoreApplication.translate
@@ -81,3 +92,11 @@ class Ui_Login(object):
         self.lineEdit_password.setPlaceholderText(_translate("Login", "Password"))
 
 
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Login = QtWidgets.QMainWindow()
+    ui = Ui_Login()
+    ui.setupUi(Login)
+    Login.show()
+    sys.exit(app.exec())
