@@ -1,8 +1,8 @@
-# Form implementation generated from reading ui file 'Main.ui'
-#
-# Created by: PyQt6 UI code generator 6.1.1
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtCore import QDateTime
+from PyQt5 import *
+import os
+import sys
+from PyQt5.QtWidgets import *
+from messagesBox import msgBox
 
 
 class Ui_export(object):
@@ -12,9 +12,9 @@ class Ui_export(object):
         MainWindow.setMinimumSize(QtCore.QSize(915, 536))
         MainWindow.setMaximumSize(QtCore.QSize(915, 536))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("images/logo.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap(":/images/logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.Language.English, QtCore.QLocale.Country.UnitedStates))
+        MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
@@ -29,9 +29,6 @@ class Ui_export(object):
         self.checkBox = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox.setGeometry(QtCore.QRect(12, 32, 95, 24))
         self.checkBox.setObjectName("checkBox")
-
-        self.checkBox.stateChanged.connect(self.All_Item_selected)  # checked All
-
         self.checkBox_pat = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox_pat.setGeometry(QtCore.QRect(13, 101, 194, 30))
         font = QtGui.QFont()
@@ -78,7 +75,7 @@ class Ui_export(object):
         self.checkBox_irf.setFont(font)
         self.checkBox_irf.setObjectName("checkBox_irf")
         self.checkBox_opd = QtWidgets.QCheckBox(self.groupBox)
-        self.checkBox_opd.setGeometry(QtCore.QRect(13, 138, 286, 30))
+        self.checkBox_opd.setGeometry(QtCore.QRect(13, 138, 300, 30))
         font = QtGui.QFont()
         font.setFamily("TH SarabunPSK")
         font.setPointSize(14)
@@ -122,15 +119,15 @@ class Ui_export(object):
         font.setWeight(75)
         self.checkBox_cha.setFont(font)
         self.checkBox_cha.setObjectName("checkBox_cha")
-        self.checkBox_aef = QtWidgets.QCheckBox(self.groupBox)
-        self.checkBox_aef.setGeometry(QtCore.QRect(413, 211, 347, 30))
+        self.checkBox_aer = QtWidgets.QCheckBox(self.groupBox)
+        self.checkBox_aer.setGeometry(QtCore.QRect(413, 211, 347, 30))
         font = QtGui.QFont()
         font.setFamily("TH SarabunPSK")
         font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.checkBox_aef.setFont(font)
-        self.checkBox_aef.setObjectName("checkBox_aef")
+        self.checkBox_aer.setFont(font)
+        self.checkBox_aer.setObjectName("checkBox_aer")
         self.checkBox_adp = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox_adp.setGeometry(QtCore.QRect(413, 248, 387, 30))
         font = QtGui.QFont()
@@ -141,7 +138,7 @@ class Ui_export(object):
         self.checkBox_adp.setFont(font)
         self.checkBox_adp.setObjectName("checkBox_adp")
         self.checkBox_lvd = QtWidgets.QCheckBox(self.groupBox)
-        self.checkBox_lvd.setGeometry(QtCore.QRect(413, 285, 388, 30))
+        self.checkBox_lvd.setGeometry(QtCore.QRect(413, 285, 400, 30))
         font = QtGui.QFont()
         font.setFamily("TH SarabunPSK")
         font.setPointSize(14)
@@ -194,13 +191,15 @@ class Ui_export(object):
         font.setWeight(75)
         self.pushButton.setFont(font)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("images/outline_file_upload_black_48dp.png"), QtGui.QIcon.Mode.Normal,
-                        QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap(":/images/outline_file_upload_black_48dp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setIconSize(QtCore.QSize(50, 20))
         self.pushButton.setAutoDefault(False)
         self.pushButton.setDefault(True)
         self.pushButton.setObjectName("pushButton")
+
+        self.pushButton.clicked.connect(self.openSaveDialog)
+
         self.dateEdit_from = QtWidgets.QDateEdit(self.centralwidget)
         self.dateEdit_from.setGeometry(QtCore.QRect(260, 20, 141, 41))
         font = QtGui.QFont()
@@ -209,16 +208,13 @@ class Ui_export(object):
         font.setBold(True)
         font.setWeight(75)
         self.dateEdit_from.setFont(font)
-        self.dateEdit_from.setLocale(
-            QtCore.QLocale(QtCore.QLocale.Language.English, QtCore.QLocale.Country.UnitedStates))
+        self.dateEdit_from.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.dateEdit_from.setCalendarPopup(True)
         self.dateEdit_from.setCurrentSectionIndex(0)
-        self.dateEdit_from.setTimeSpec(QtCore.Qt.TimeSpec.LocalTime)
+        self.dateEdit_from.setTimeSpec(QtCore.Qt.LocalTime)
         self.dateEdit_from.setObjectName("dateEdit_from")
 
         self.dateEdit_from.setDateTime(QtCore.QDateTime.currentDateTime())  # set date from crrent
-
-        # print(self.dateEdit_from.text())
 
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(410, 30, 20, 20))
@@ -246,7 +242,7 @@ class Ui_export(object):
         font.setBold(True)
         font.setWeight(75)
         self.dateEdit_to.setFont(font)
-        self.dateEdit_to.setLocale(QtCore.QLocale(QtCore.QLocale.Language.English, QtCore.QLocale.Country.UnitedStates))
+        self.dateEdit_to.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.dateEdit_to.setCalendarPopup(True)
         self.dateEdit_to.setObjectName("dateEdit_to")
 
@@ -254,7 +250,7 @@ class Ui_export(object):
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 915, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 915, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -264,49 +260,20 @@ class Ui_export(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def All_Item_selected(self):
-        if self.checkBox.isChecked():
-            self.checkBox.setText('Not select All')
-            self.checkBox_ins.setChecked(True)
-            self.checkBox_pat.setChecked(True)
-            self.checkBox_opd.setChecked(True)
-            self.checkBox_orf.setChecked(True)
-            self.checkBox_odx.setChecked(True)
-            self.checkBox_oop.setChecked(True)
-            self.checkBox_ipd.setChecked(True)
-            self.checkBox_irf.setChecked(True)
-            self.checkBox_idx.setChecked(True)
-            self.checkBox_iop.setChecked(True)
-            self.checkBox_cht.setChecked(True)
-            self.checkBox_cha.setChecked(True)
-            self.checkBox_aef.setChecked(True)
-            self.checkBox_adp.setChecked(True)
-            self.checkBox_lvd.setChecked(True)
-            self.checkBox_dru.setChecked(True)
-            self.checkBox_labfu.setChecked(True)
-        else:
-            self.checkBox.setText('select All')
-            self.checkBox_ins.setChecked(False)
-            self.checkBox_pat.setChecked(False)
-            self.checkBox_opd.setChecked(False)
-            self.checkBox_orf.setChecked(False)
-            self.checkBox_odx.setChecked(False)
-            self.checkBox_oop.setChecked(False)
-            self.checkBox_ipd.setChecked(False)
-            self.checkBox_irf.setChecked(False)
-            self.checkBox_idx.setChecked(False)
-            self.checkBox_iop.setChecked(False)
-            self.checkBox_cht.setChecked(False)
-            self.checkBox_cha.setChecked(False)
-            self.checkBox_aef.setChecked(False)
-            self.checkBox_adp.setChecked(False)
-            self.checkBox_lvd.setChecked(False)
-            self.checkBox_dru.setChecked(False)
-            self.checkBox_labfu.setChecked(False)
+
+    def openSaveDialog(self):
+        widget = QWidget()
+        dialog = QFileDialog()
+        foo_dir = dialog.getExistingDirectory(widget, 'Select directory')
+        print(foo_dir)
+        msg = msgBox()
+        msg.info("Export Success!!")
+
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Export e-Claim v.1.0.0.01102564"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Export e-Claim v.1.0.0"))
         self.groupBox.setTitle(_translate("MainWindow", "16 File"))
         self.checkBox.setText(_translate("MainWindow", "Select All"))
         self.checkBox_pat.setText(_translate("MainWindow", "PAT แฟ้มข้อมูลผู้ป่วยกลาง "))
@@ -319,26 +286,26 @@ class Ui_export(object):
         self.checkBox_odx.setText(_translate("MainWindow", "ODX แฟ้มข้อมูลวินิจฉัยโรคผู้ป่วยนอก "))
         self.checkBox_cht.setText(_translate("MainWindow", "CHT แฟ้มข้อมูลการเงิน (แบบสรุป)"))
         self.checkBox_cha.setText(_translate("MainWindow", "CHA แฟ้มข้อมูลการเงิน (แบบรายละเอียด) "))
-        self.checkBox_aef.setText(_translate("MainWindow", "AER แฟ้มข้อมูลอุบัติเหตุ ฉุกเฉิน และรับส่งเพื่อรักษา "))
-        self.checkBox_adp.setText(
-            _translate("MainWindow", "ADP แฟ้มข้อมูลค่าใช้จ่ายเพิ่ม และบริการที่ยังไม่ได้จัดหมวด "))
+        self.checkBox_aer.setText(_translate("MainWindow", "AER แฟ้มข้อมูลอุบัติเหตุ ฉุกเฉิน และรับส่งเพื่อรักษา "))
+        self.checkBox_adp.setText(_translate("MainWindow", "ADP แฟ้มข้อมูลค่าใช้จ่ายเพิ่ม และบริการที่ยังไม่ได้จัดหมวด "))
         self.checkBox_lvd.setText(_translate("MainWindow", "LVD แฟ้มข้อมูลกรณีที่ผู้ป่วยมีการลากลับบ้าน (Leave day) "))
         self.checkBox_dru.setText(_translate("MainWindow", "DRU แฟ้มข้อมูลการใช้ยา"))
-        self.checkBox_labfu.setText(
-            _translate("MainWindow", "LABFU แฟ้มข้อมูลการตรวจทางห้องปฏิบัติการของผู้ป่วยโรคเรื้อรัง"))
+        self.checkBox_labfu.setText(_translate("MainWindow", "LABFU แฟ้มข้อมูลการตรวจทางห้องปฏิบัติการของผู้ป่วยโรคเรื้อรัง"))
         self.checkBox_iop.setText(_translate("MainWindow", "IOP แฟ้มข้อมูลหัตถการผู้ป่วยใน"))
         self.checkBox_idx.setText(_translate("MainWindow", "IDX มาตรฐานแฟ้มข้อมูลวินิจฉัยโรคผู้ป่วยใน"))
         self.pushButton.setText(_translate("MainWindow", "Export"))
-        self.dateEdit_from.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd"))
+        self.dateEdit_from.setDisplayFormat(_translate("MainWindow", "dd-MM-yyyy"))
         self.label_2.setText(_translate("MainWindow", "To"))
         self.label.setText(_translate("MainWindow", "From"))
-        self.dateEdit_to.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd"))
+        self.dateEdit_to.setDisplayFormat(_translate("MainWindow", "dd-MM-yyyy"))
+
 
 # if __name__ == "__main__":
 #     import sys
 #     app = QtWidgets.QApplication(sys.argv)
 #     MainWindow = QtWidgets.QMainWindow()
-#     ui = Ui_MainWindow()
+#     ui = Ui_export()
 #     ui.setupUi(MainWindow)
 #     MainWindow.show()
-#     sys.exit(app.exec())
+#     sys.exit(app.exec_())
+
