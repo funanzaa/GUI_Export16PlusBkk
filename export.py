@@ -3,6 +3,7 @@ import os
 import sys
 from PyQt5.QtWidgets import *
 from messagesBox import msgBox
+from ExportFile import DataBase
 
 
 class Ui_export(object):
@@ -12,7 +13,7 @@ class Ui_export(object):
         MainWindow.setMinimumSize(QtCore.QSize(915, 536))
         MainWindow.setMaximumSize(QtCore.QSize(915, 536))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/images/logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("images/logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -191,7 +192,7 @@ class Ui_export(object):
         font.setWeight(75)
         self.pushButton.setFont(font)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/images/outline_file_upload_black_48dp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("images/outline_file_upload_black_48dp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setIconSize(QtCore.QSize(50, 20))
         self.pushButton.setAutoDefault(False)
@@ -261,13 +262,21 @@ class Ui_export(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 
+
+
     def openSaveDialog(self):
         widget = QWidget()
         dialog = QFileDialog()
         foo_dir = dialog.getExistingDirectory(widget, 'Select directory')
         print(foo_dir)
-        msg = msgBox()
-        msg.info("Export Success!!")
+        exportFile = DataBase()
+        if self.checkBox_opd.isChecked():
+            exportFile.export('opd',foo_dir)
+
+
+
+        # msg = msgBox()
+        # msg.info("Export Success!!")
 
 
 

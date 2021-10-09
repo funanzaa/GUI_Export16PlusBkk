@@ -22,12 +22,6 @@ class AppWindow(QMainWindow, Ui_Login):
             self.ui.setupUi(self.window)
             self.window.show()
             self.hide()
-            # self.export = QtWidgets.QMainWindow()
-            # self.ui = Ui_export()
-            # self.ui.setupUi(self.export)
-            # self.form_export.show() # show login
-            # self.hide() # hide login
-
         else:
             self.statusbar.showMessage("Username & Password is Wrong", 2000)
 
