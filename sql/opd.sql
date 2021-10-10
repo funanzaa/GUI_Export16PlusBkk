@@ -6,8 +6,8 @@ from (
 	,replace(left(visit_time,5),':','') as TIMEOPD
 	,v.vn as SEQ
 	,'1' as UUC -- การใช้สิทธิ (เพิ่มเติม) 1 ใช้สิทธิ, 2 ไมใช้สิทธิ
-	,case when char_length(trim(dup_vital_sign_extend.main_symptom)) > 255 then substring(trim(dup_vital_sign_extend.main_symptom),1,255)
-		else trim(dup_vital_sign_extend.main_symptom) end as DETAIL -- check over 255
+	,case when char_length(trim(dup_vital_sign_extend.main_symptom)) > 255 then substring(regexp_replace(trim(dup_vital_sign_extend.main_symptom),'\s+','','g'),1,255)
+		else regexp_replace(trim(dup_vital_sign_extend.main_symptom),'\s+','','g') end as DETAIL -- check over 255
 	--,to_number(case when v_vital_sign_opd.temperature is null or v_vital_sign_opd.temperature = '' then '0' else v_vital_sign_opd.temperature end,'99D99') as BTEMP -- อุณหภูมิร่างกาย
 	,v_vital_sign_opd.temperature as BTEMP -- อุณหภูมิร่างกาย
 	,v_vital_sign_opd.pressure_max as SBP --ความดันโลหิตค่าตัวบน
@@ -63,8 +63,8 @@ from (
 		inner join plan on visit_payment.plan_id  = plan.plan_id
 		where priority = '1'
 	) get_plan on v.visit_id = get_plan.visit_id -- ดึง plan ใน visit_payment
-	where v.visit_date::date >= '2021-09-01'
-	and v.visit_date::date <= '2021-09-01'
+	where v.visit_date::date >= %(_dateform)s
+	and v.visit_date::date <= %(_dateto)s
 	and v.financial_discharge = '1' --จำหน่ายทางการเงินแล้ว
 	and v.doctor_discharge = '1' --จำหน่ายทางการแพทย์แล้ว
 	and v.fix_visit_type_id = '0' --ประเภทการเข้ารับบริการ 0 ผู้ป่วยนอก,1 ผู้ป่วยใน
@@ -72,4 +72,3 @@ from (
 	order by v.vn
 ) q
 where q.optype <> '' -- ไม่เข้าเงื่อนไข optype
-limit 10

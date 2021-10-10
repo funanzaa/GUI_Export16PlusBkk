@@ -265,12 +265,14 @@ class Ui_export(object):
 
 
     def openSaveDialog(self):
-        # widget = QWidget()
-        # dialog = QFileDialog()
-        # foo_dir = dialog.getExistingDirectory(widget, 'Select directory')
+        dateEdit_from = self.dateEdit_from.date()
+        dateFrom = dateEdit_from.toPyDate()
+        dateEdit_to = self.dateEdit_to.date()
+        dateto = dateEdit_to.toPyDate()
         exportFile = DataBase()
+
         if self.checkBox_opd.isChecked():
-            exportFile.export('opd')
+            exportFile.export('opd', dateFrom, dateto)
             self.statusbar.showMessage("")
             msg = msgBox()
             msg.info("Export Success!!")
