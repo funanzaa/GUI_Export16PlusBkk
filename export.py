@@ -288,12 +288,11 @@ class Ui_export(object):
             exportFile.export('PAT', dateFrom, dateto, dir)
             nameFile.append('PAT')
 
-        if self.checkBox_pat.isChecked():
+        if self.checkBox_ins.isChecked():
             exportFile.export('INS', dateFrom, dateto, dir)
             nameFile.append('INS')
 
-            msg = msgBox()
-
+        msg = msgBox()
         msg.info("Export {} Success!! \n{} ".format(nameFile, dir))
 
 
