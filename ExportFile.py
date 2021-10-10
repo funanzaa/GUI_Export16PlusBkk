@@ -13,7 +13,7 @@ class DataBase:
         self.port = self.serverinfo["port"]
         self.password = self.serverinfo["passwd"]
 
-    def export(self, file, dateform, dateto):
+    def export(self, file, dateform, dateto , dir):
         print(dateform)
         print(dateto)
         with open(r"sql\{}.sql".format(file), mode="r", encoding="utf8") as f:
@@ -23,7 +23,6 @@ class DataBase:
         cursor = connection.cursor()
         cursor.execute(sql, {'_dateform': dateform, '_dateto': dateto})
         updated_rows = cursor.fetchall()
-        # print(len(updated_rows[0]))
 
         # cursor = connection.cursor()
         # SQL_for_file_output = "COPY ({0}) TO STDOUT WITH DELIMITER '|' CSV".format(sql)
@@ -35,26 +34,21 @@ class DataBase:
         #     cursor.copy_expert(sql2, file)
 
         for i in range(len(updated_rows)):
-            p = len(updated_rows[0])
-            # print("first : " + str(p))
+            p = len(updated_rows[0]) # set positon len
             for j in range(len(updated_rows[i])):
-                with open(r"file_export\{}.txt".format(file), "a", encoding="utf8") as f:
-                    # print("before : " + str(p))
+                with open(r"{}/{}.txt".format(dir, file), "a", encoding="utf8") as f:
                     p = p - 1
-                    if p == 0:
-                        # print("p == 0 : " + str(p))
+                    if p == 0: # last position not "|"
                         if str(updated_rows[i][j]) == 'None':
                             empty = ''
                             f.write("{}".format(empty))
                         else:
                             f.write("{}".format(updated_rows[i][j]))
                     elif p > 0:
-                        # print("p > 0 : " + str(p))
                         if str(updated_rows[i][j]) == 'None':
                             empty = ''
                             f.write("{}|".format(empty))
                         else:
                             f.write("{}|".format(updated_rows[i][j]))
-            with open(r"file_export\{}.txt".format(file), "a", encoding="utf8") as f:
+            with open(r"{}/{}.txt".format(dir, file), "a", encoding="utf8") as f:
                 f.write("\n")
-        print("ok" + file)
