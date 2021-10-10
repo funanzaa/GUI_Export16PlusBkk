@@ -14,8 +14,8 @@ class DataBase:
         self.password = self.serverinfo["passwd"]
 
     def export(self, file, dateform, dateto , dir):
-        print(dateform)
-        print(dateto)
+        dateto_format = str(dateto.strftime("%y%m"))
+
         with open(r"sql\{}.sql".format(file), mode="r", encoding="utf8") as f:
             sql = f.read()
         connection = psycopg2.connect(user=self.user, password=self.password, host=self.host, port=self.port,
@@ -24,6 +24,8 @@ class DataBase:
         cursor.execute(sql, {'_dateform': dateform, '_dateto': dateto})
         updated_rows = cursor.fetchall()
 
+
+        # Use postgresql #
         # cursor = connection.cursor()
         # SQL_for_file_output = "COPY ({0}) TO STDOUT WITH DELIMITER '|' CSV".format(sql)
         # t_path_n_file = dir + "/" + file + ".txt"
@@ -36,7 +38,7 @@ class DataBase:
         for i in range(len(updated_rows)):
             p = len(updated_rows[0]) # set positon len
             for j in range(len(updated_rows[i])):
-                with open(r"{}/{}.txt".format(dir, file), "a", encoding="utf8") as f:
+                with open(r"{}/{}.txt".format(dir, file + dateto_format), "a", encoding="utf8") as f:
                     p = p - 1
                     if p == 0: # last position not "|"
                         if str(updated_rows[i][j]) == 'None':
@@ -50,5 +52,5 @@ class DataBase:
                             f.write("{}|".format(empty))
                         else:
                             f.write("{}|".format(updated_rows[i][j]))
-            with open(r"{}/{}.txt".format(dir, file), "a", encoding="utf8") as f:
+            with open(r"{}/{}.txt".format(dir, file + dateto_format), "a", encoding="utf8") as f:
                 f.write("\n")
