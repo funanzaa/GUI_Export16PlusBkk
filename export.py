@@ -265,18 +265,15 @@ class Ui_export(object):
 
 
     def openSaveDialog(self):
-        widget = QWidget()
-        dialog = QFileDialog()
-        foo_dir = dialog.getExistingDirectory(widget, 'Select directory')
-        print(foo_dir)
+        # widget = QWidget()
+        # dialog = QFileDialog()
+        # foo_dir = dialog.getExistingDirectory(widget, 'Select directory')
         exportFile = DataBase()
         if self.checkBox_opd.isChecked():
-            exportFile.export('opd',foo_dir)
-
-
-
-        # msg = msgBox()
-        # msg.info("Export Success!!")
+            exportFile.export('opd')
+            self.statusbar.showMessage("")
+            msg = msgBox()
+            msg.info("Export Success!!")
 
 
 
