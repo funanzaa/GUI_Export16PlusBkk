@@ -1,3 +1,5 @@
+import time
+
 from PyQt5 import *
 import os
 import sys
@@ -257,6 +259,7 @@ class Ui_export(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.statusbar.showMessage("Please Enter Username & Password", 2000)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -274,14 +277,24 @@ class Ui_export(object):
         dateto = dateEdit_to.toPyDate()
         exportFile = DataBase()
 
+
+        nameFile = []
+
         if self.checkBox_opd.isChecked():
             exportFile.export('OPD', dateFrom, dateto, dir)
+            nameFile.append('OPD')
+
         if self.checkBox_pat.isChecked():
             exportFile.export('PAT', dateFrom, dateto, dir)
+            nameFile.append('PAT')
+
         if self.checkBox_pat.isChecked():
             exportFile.export('INS', dateFrom, dateto, dir)
+            nameFile.append('INS')
+
             msg = msgBox()
-            msg.info("Export {} Success!!".format('INS'))
+
+        msg.info("Export {} Success!! \n{} ".format(nameFile, dir))
 
 
 
