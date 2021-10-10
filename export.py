@@ -263,8 +263,12 @@ class Ui_export(object):
 
 
 
-
     def openSaveDialog(self):
+        widget = QWidget()
+        dialog = QFileDialog()
+        foo_dir = dialog.getExistingDirectory(widget, 'Select an awesome directory')
+        print(foo_dir)
+    # def openSaveDialog(self):
         dateEdit_from = self.dateEdit_from.date()
         dateFrom = dateEdit_from.toPyDate()
         dateEdit_to = self.dateEdit_to.date()
@@ -273,9 +277,13 @@ class Ui_export(object):
 
         if self.checkBox_opd.isChecked():
             exportFile.export('opd', dateFrom, dateto)
-            self.statusbar.showMessage("")
             msg = msgBox()
-            msg.info("Export Success!!")
+            # msg.info("Export {} Success!!".format('opd'))
+        # print(self.checkBox_pat.isChecked())
+        if self.checkBox_pat.isChecked():
+            exportFile.export('pat', dateFrom, dateto)
+            msg = msgBox()
+            msg.info("Export {} Success!!".format('pat'))
 
 
 

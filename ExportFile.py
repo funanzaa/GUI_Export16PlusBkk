@@ -14,7 +14,6 @@ class DataBase:
         self.password = self.serverinfo["passwd"]
 
     def export(self, file, dateform, dateto):
-        print(file)
         print(dateform)
         print(dateto)
         with open(r"sql\{}.sql".format(file), mode="r", encoding="utf8") as f:
@@ -58,4 +57,4 @@ class DataBase:
                             f.write("{}|".format(updated_rows[i][j]))
             with open(r"file_export\{}.txt".format(file), "a", encoding="utf8") as f:
                 f.write("\n")
-        print("ok")
+        print("ok" + file)
