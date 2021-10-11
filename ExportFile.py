@@ -54,3 +54,4 @@ class DataBase:
                             f.write("{}|".format(updated_rows[i][j]))
             with open(r"{}/{}.txt".format(dir, file + dateto_format), "a", encoding="utf8") as f:
                 f.write("\n")
+        return True

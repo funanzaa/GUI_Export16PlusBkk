@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
+
 
 class Ui_Login(object):
     def setupUi(self, Login):
@@ -40,6 +42,7 @@ class Ui_Login(object):
         self.gridLayout.addWidget(self.lineEdit_username, 0, 0, 1, 1)
         self.lineEdit_password = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit_password.setObjectName("lineEdit_password")
+        self.lineEdit_password.setEchoMode(QLineEdit.EchoMode.Password)  # Set lineedit show password
         self.gridLayout.addWidget(self.lineEdit_password, 1, 0, 1, 1)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(30, 60, 201, 181))
