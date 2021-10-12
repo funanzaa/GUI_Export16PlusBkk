@@ -9,6 +9,7 @@ from ExportFile import DataBase
 
 from PyQt5.QtWidgets import *
 
+
 class Ui_export(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -265,8 +266,7 @@ class Ui_export(object):
 
         # self.pushButton.clicked.connect(self.openSaveDialog) # button export
 
-        self.pushButton.clicked.connect(lambda: self.openSaveDialog(True)) # button export
-
+        self.pushButton.clicked.connect(lambda: self.openSaveDialog(True))  # button export
 
         self.gridLayout_2.addWidget(self.pushButton, 0, 11, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -279,9 +279,10 @@ class Ui_export(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def chkstatusbox(self):
-        if self.checkBox_opd.isChecked() or \
-                self.checkBox_pat.isChecked() or \
-                self.checkBox_ins.isChecked():
+        if self.checkBox_opd.isChecked() or self.checkBox_pat.isChecked() or \
+                self.checkBox_ins.isChecked() or self.checkBox_orf.isChecked() or\
+                self.checkBox_ipd.isChecked() or self.checkBox_odx.isChecked() or self.checkBox_oop.isChecked() or\
+                self.checkBox_dru.isChecked():
             return True
 
     def openSaveDialog(self, status):
@@ -296,7 +297,6 @@ class Ui_export(object):
         else:
             msg.info("Please Choose File Export")
 
-
         dateEdit_from = self.dateEdit_from.date()
         dateFrom = dateEdit_from.toPyDate()
         dateEdit_to = self.dateEdit_to.date()
@@ -307,27 +307,45 @@ class Ui_export(object):
         nameFile = []
         status = False
 
-
         if self.checkBox_opd.isChecked():
             re_export = exportFile.export('OPD', dateFrom, dateto, dir)
             nameFile.append('OPD')
             status = re_export
-
-
 
         if self.checkBox_pat.isChecked():
             re_export = exportFile.export('PAT', dateFrom, dateto, dir)
             nameFile.append('PAT')
             status = re_export
 
-
-
         if self.checkBox_ins.isChecked():
             re_export = exportFile.export('INS', dateFrom, dateto, dir)
             nameFile.append('INS')
             status = re_export
 
+        if self.checkBox_orf.isChecked():
+            re_export = exportFile.export('ORF', dateFrom, dateto, dir)
+            nameFile.append('ORF')
+            status = re_export
 
+        if self.checkBox_ipd.isChecked():
+            re_export = exportFile.export('IPD', dateFrom, dateto, dir)
+            nameFile.append('IPD')
+            status = re_export
+
+        if self.checkBox_odx.isChecked():
+            re_export = exportFile.export('ODX', dateFrom, dateto, dir)
+            nameFile.append('ODX')
+            status = re_export
+
+        if self.checkBox_oop.isChecked():
+            re_export = exportFile.export('OOP', dateFrom, dateto, dir)
+            nameFile.append('OOP')
+            status = re_export
+
+        if self.checkBox_dru.isChecked():
+            re_export = exportFile.export('DRU', dateFrom, dateto, dir)
+            nameFile.append('DRU')
+            status = re_export
 
         if status:
             msg.info("Export {} Success!! \n{} ".format(nameFile, dir))
@@ -356,16 +374,14 @@ class Ui_export(object):
         self.checkBox_odx.setText(_translate("MainWindow", "ODX แฟ้มข้อมูลวินิจฉัยโรคผู้ป่วยนอก "))
         self.checkBox_aer.setText(_translate("MainWindow", "AER แฟ้มข้อมูลอุบัติเหตุ ฉุกเฉิน และรับส่งเพื่อรักษา "))
         self.checkBox_oop.setText(_translate("MainWindow", "OOP แฟ้มข้อมูลหัตถการผู้ป่วยนอก "))
-        self.checkBox_adp.setText(_translate("MainWindow", "ADP แฟ้มข้อมูลค่าใช้จ่ายเพิ่ม และบริการที่ยังไม่ได้จัดหมวด "))
+        self.checkBox_adp.setText(
+            _translate("MainWindow", "ADP แฟ้มข้อมูลค่าใช้จ่ายเพิ่ม และบริการที่ยังไม่ได้จัดหมวด "))
         self.checkBox_ipd.setText(_translate("MainWindow", "IPD แฟ้มข้อมูลผู้ป่วยใน "))
         self.checkBox_lvd.setText(_translate("MainWindow", "LVD แฟ้มข้อมูลกรณีที่ผู้ป่วยมีการลากลับบ้าน (Leave day) "))
         self.checkBox_irf.setText(_translate("MainWindow", "IRF แฟ้มข้อมูลผู้ป่วยในที่ต้องส่งต่อ"))
         self.checkBox_dru.setText(_translate("MainWindow", "DRU แฟ้มข้อมูลการใช้ยา"))
-        self.checkBox_labfu.setText(_translate("MainWindow", "LABFU แฟ้มข้อมูลการตรวจทางห้องปฏิบัติการของผู้ป่วยโรคเรื้อรัง"))
+        self.checkBox_labfu.setText(
+            _translate("MainWindow", "LABFU แฟ้มข้อมูลการตรวจทางห้องปฏิบัติการของผู้ป่วยโรคเรื้อรัง"))
         self.label_2.setText(_translate("MainWindow", "To"))
         self.dateEdit_to.setDisplayFormat(_translate("MainWindow", "dd-MM-yyyy"))
         self.pushButton.setText(_translate("MainWindow", "Export"))
-
-
-
-
