@@ -21,8 +21,6 @@ class ReadFileConfig:
         except:
             return False
 
-    def getConfig(self):
-        return ReadFileConfig()
 
     def writeFile(self, host, dbname, user, password, port):
         config_object = ConfigParser()

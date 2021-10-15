@@ -11,3 +11,11 @@ class msgBox:
         msg.setText(text)
         # msg.setStandardButtons(QMessageBox.Ok)
         msg.exec()
+
+    def warning(self, text):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("คำเตือน")
+        msg.setText(text)
+        msg.exec()
+
