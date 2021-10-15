@@ -4,7 +4,11 @@ from ReadConfig import ReadFileConfig
 from export import Ui_export
 from form_connectDB import * # from connectDB
 from messagesBox import *
+from ReadDB import *
 
+
+
+version = 'v.1.0.0'
 
 class Ui_Login(object):
     def setupUi(self, Login):
@@ -86,13 +90,18 @@ class Ui_Login(object):
         username = self.lineEdit_username.text()
         passwd = self.lineEdit_password.text()
 
-        if username == 'admin' and passwd == 'demo':
-            nameUser = 'admin'
+        readDB = DataBase()
+        nameUser = readDB.checkUser(username, passwd)
+        # print(nameUser)
+        # print(nameUser[0])
+        # print(nameUser[1])
+
+        if nameUser:
             self.form_export = QtWidgets.QMainWindow()
             self.ui = Ui_export()
             self.ui.setupUi(self.form_export)
             self.form_export.show()  # show login
-            self.form_export.setWindowTitle("Export e-Claim v.1.0.0 ({})".format(nameUser))
+            self.form_export.setWindowTitle("Export e-Claim {} ({})".format(version, nameUser[1]))
 
             self.form_export.show()
             Login.close()
