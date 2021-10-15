@@ -1,6 +1,7 @@
---PAT 08/10/64 v.1.3
+--PAT 08/10/64 v.1.4
 -- มาตรฐานแฟ้มข้อมูลผู้ป่วยกลาง (PAT)
 -- v.1.3 ตัด colum dup
+-- v.1.4 ตัด fname,lname tab
 with cte1 as
 (
 	select base_site.base_site_id
@@ -15,11 +16,11 @@ with cte1 as
 	 ,case when occupation.fix_occupation_id <> '' then occupation.fix_occupation_id  else '000'  end as OCCUPA
 	 ,nationality.fix_nationality_id as NATION
 	 ,p.pid as PERSON_ID
-	 --,char_length(p.firstname||' '||p.lastname||','||p.prename) as NAMEPAT
-	 ,case when char_length(trim(p.firstname)||' '||trim(p.lastname)||','||trim(p.prename)) > 36 then substring(trim(p.firstname)||' '||trim(p.lastname)||','||trim(p.prename),1,36) else trim(p.firstname)||' '||trim(p.lastname)||','||trim(p.prename) end as NAMEPAT -- check over 36
-	,trim(p.prename) as TITLE
-	,trim(p.firstname) as FNAME
-	,trim(p.lastname) as LNAME
+	 ,regexp_replace(p.firstname, '[^\w]+','','g')||' '||regexp_replace(p.lastname, '[^\w]+','','g')||','||p.prename as NAMEPAT --only text
+	-- ,case when char_length(trim(p.firstname)||' '||trim(p.lastname)||','||trim(p.prename)) > 36 then substring(trim(p.firstname)||' '||trim(p.lastname)||','||trim(p.prename),1,36) else trim(p.firstname)||' '||trim(p.lastname)||','||trim(p.prename) end as NAMEPAT -- check over 36
+	 ,trim(p.prename) as TITLE
+	,regexp_replace(p.firstname, '[^\w]+','','g') as FNAME
+	,regexp_replace(p.lastname, '[^\w]+','','g') as LNAME
 	,case when p.pid <> '' then '1' else '' end as IDTYPE
 	 from visit v
 	left join patient p on v.patient_id = p.patient_id
@@ -28,14 +29,22 @@ with cte1 as
 	left join fix_occupation occupation on p.fix_occupation_id = occupation.fix_occupation_id
 	left join fix_nationality nationality on p.fix_nationality_id = nationality.fix_nationality_id
 	,base_site
-	where v.visit_date::date >= %(_dateform)s
-	and v.visit_date::date <= %(_dateto)s
+    where v.visit_date::date >= %(_dateform)s
+    and v.visit_date::date <= %(_dateto)s
 	and v.financial_discharge = '1' --จำหน่ายทางการเงินแล้ว
 	and v.doctor_discharge = '1' --จำหน่ายทางการแพทย์แล้ว
 	order by v.vn
+--and v.visit_id = '121090107433621501'
 )
-select cte1.base_site_id,cte1.hn,cte1.changwat,cte1.amphur,cte1.dob,cte1.sex,cte1.marriage,cte1.occupa
-,cte1.nation,cte1.person_id,cte1.namepat,cte1.title,cte1.fname,cte1.lname,cte1.idtype
+select cte1.base_site_id as hcode,cte1.hn,cte1.changwat,cte1.amphur,cte1.dob,cte1.sex,cte1.marriage,cte1.occupa
+,cte1.nation,cte1.person_id
+,cte1.namepat
+,cte1.title
+,cte1.fname
+,cte1.lname
+,cte1.idtype
 from cte1
 group by cte1.base_site_id,cte1.hn,cte1.changwat,cte1.amphur,cte1.dob,cte1.sex,cte1.marriage,cte1.occupa
 ,cte1.nation,cte1.person_id,cte1.namepat,cte1.title,cte1.fname,cte1.lname,cte1.idtype
+
+

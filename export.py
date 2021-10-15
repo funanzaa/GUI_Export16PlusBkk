@@ -71,6 +71,9 @@ class Ui_export(object):
         self.gridLayout.setObjectName("gridLayout")
         self.checkBox = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox.setObjectName("checkBox")
+
+        self.checkBox.stateChanged.connect(self.All_Item_selected)  # checked All
+
         self.gridLayout.addWidget(self.checkBox, 0, 0, 1, 1)
         self.checkBox_ins = QtWidgets.QCheckBox(self.groupBox)
         font = QtGui.QFont()
@@ -355,6 +358,46 @@ class Ui_export(object):
 
     def clearText(self):
         self.label_show.clear()
+
+    def All_Item_selected(self):
+        if self.checkBox.isChecked():
+            self.checkBox.setText('Not select All')
+            self.checkBox_ins.setChecked(True)
+            self.checkBox_pat.setChecked(True)
+            self.checkBox_opd.setChecked(True)
+            self.checkBox_orf.setChecked(True)
+            self.checkBox_odx.setChecked(True)
+            self.checkBox_oop.setChecked(True)
+            self.checkBox_ipd.setChecked(True)
+            self.checkBox_irf.setChecked(True)
+            self.checkBox_idx.setChecked(True)
+            self.checkBox_iop.setChecked(True)
+            self.checkBox_cht.setChecked(True)
+            self.checkBox_cha.setChecked(True)
+            self.checkBox_aer.setChecked(True)
+            self.checkBox_adp.setChecked(True)
+            self.checkBox_lvd.setChecked(True)
+            self.checkBox_dru.setChecked(True)
+            self.checkBox_labfu.setChecked(True)
+        else:
+            self.checkBox.setText('Select All')
+            self.checkBox_ins.setChecked(False)
+            self.checkBox_pat.setChecked(False)
+            self.checkBox_opd.setChecked(False)
+            self.checkBox_orf.setChecked(False)
+            self.checkBox_odx.setChecked(False)
+            self.checkBox_oop.setChecked(False)
+            self.checkBox_ipd.setChecked(False)
+            self.checkBox_irf.setChecked(False)
+            self.checkBox_idx.setChecked(False)
+            self.checkBox_iop.setChecked(False)
+            self.checkBox_cht.setChecked(False)
+            self.checkBox_cha.setChecked(False)
+            self.checkBox_aer.setChecked(False)
+            self.checkBox_adp.setChecked(False)
+            self.checkBox_lvd.setChecked(False)
+            self.checkBox_dru.setChecked(False)
+            self.checkBox_labfu.setChecked(False)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
