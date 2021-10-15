@@ -112,6 +112,10 @@ class Ui_form_database(object):
 
     def closescr(self, form_database):
         form_database.hide()
+        self.login = QtWidgets.QMainWindow()
+        self.ui = Ui_Login()
+        self.ui.setupUi(self.login)
+        self.login.show()
 
 
     def retranslateUi(self, form_database):
@@ -122,7 +126,7 @@ class Ui_form_database(object):
         self.lineEdit_port.setPlaceholderText(_translate("form_database", "Port"))
         self.lineEdit_user.setPlaceholderText(_translate("form_database", "User"))
         self.lineEdit_password.setPlaceholderText(_translate("form_database", "Password"))
-        self.pushButton.setText(_translate("form_database", "OK"))
+        self.pushButton.setText(_translate("form_database", "Test Connect"))
         self.pushButton_2.setText(_translate("form_database", "Cancel"))
         self.actionVersion_Postgres.setText(_translate("form_database", "Version Postgres"))
 

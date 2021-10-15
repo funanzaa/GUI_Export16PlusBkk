@@ -1,5 +1,9 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui, QtWidgets
+from ReadConfig import ReadFileConfig
+from export import Ui_export
+from form_connectDB import * # from connectDB
+from messagesBox import *
 
 
 class Ui_Login(object):
@@ -36,6 +40,10 @@ class Ui_Login(object):
         icon1.addPixmap(QtGui.QPixmap("images/Pass.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setObjectName("pushButton")
+
+        # self.pushButton.clicked.connect(self.login)  # Login
+        self.pushButton.clicked.connect(lambda: self.login(Login))  # Login
+
         self.gridLayout.addWidget(self.pushButton, 2, 0, 1, 1)
         self.lineEdit_username = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit_username.setObjectName("lineEdit_username")
@@ -73,14 +81,50 @@ class Ui_Login(object):
         self.lineEdit_username.setPlaceholderText(_translate("Login", "Username"))
         self.lineEdit_password.setPlaceholderText(_translate("Login", "Password"))
 
+    def login(self, Login):
+
+        username = self.lineEdit_username.text()
+        passwd = self.lineEdit_password.text()
+
+        if username == 'admin' and passwd == 'demo':
+            nameUser = 'admin'
+            self.form_export = QtWidgets.QMainWindow()
+            self.ui = Ui_export()
+            self.ui.setupUi(self.form_export)
+            self.form_export.show()  # show login
+            self.form_export.setWindowTitle("Export e-Claim v.1.0.0 ({})".format(nameUser))
+
+            self.form_export.show()
+            Login.close()
 
 
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     Login = QtWidgets.QMainWindow()
-#     ui = Ui_Login()
-#     ui.setupUi(Login)
-#     Login.show()
-#     sys.exit(app.exec_())
+            # self.ui.label_show.setText("testsend") # test send form
+
+        else:
+            self.statusbar.showMessage("Username & Password is Wrong", 2000)
+
+
+
+
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Login = QtWidgets.QMainWindow()
+    ui = Ui_Login()
+    ui.setupUi(Login)
+    getCon = ReadFileConfig()
+    if getCon.get_config() == False:
+        form_connectDB = QtWidgets.QMainWindow()
+        ui = Ui_form_database()
+        ui.setupUi(form_connectDB)
+        msg = msgBox()
+        msg.warning('ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาตรวจสอบการตั้งค่า หรือ ติดต่อผู้ดูแลระบบ')
+        form_connectDB.show()
+    else:
+        Login.show()
+
+
+    sys.exit(app.exec_())
 

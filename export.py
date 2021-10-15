@@ -402,7 +402,7 @@ class Ui_export(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Export e-Claim v.1.0.0"))
+        # MainWindow.setWindowTitle(_translate("MainWindow", "Export e-Claim v.1.0.0"))
         self.dateEdit_from.setDisplayFormat(_translate("MainWindow", "dd-MM-yyyy"))
         self.label.setText(_translate("MainWindow", "From"))
         self.groupBox.setTitle(_translate("MainWindow", "16 File"))
