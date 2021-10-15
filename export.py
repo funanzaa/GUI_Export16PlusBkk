@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import *
 class Ui_export(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        # MainWindow.setWindowTitle("8888888888")
         MainWindow.resize(915, 536)
         MainWindow.setMinimumSize(QtCore.QSize(915, 536))
         MainWindow.setMaximumSize(QtCore.QSize(915, 536))

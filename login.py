@@ -40,7 +40,6 @@ class Ui_Login(object):
         self.lineEdit_username = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit_username.setObjectName("lineEdit_username")
 
-        # self.lineEdit_username.setPlaceholderText("ddddddddd")
 
         self.gridLayout.addWidget(self.lineEdit_username, 0, 0, 1, 1)
         self.lineEdit_password = QtWidgets.QLineEdit(self.groupBox)

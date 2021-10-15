@@ -28,10 +28,7 @@ class AppWindow(QMainWindow, Ui_Login):
         self.ui.setupUi(self.form_connectDB)
         QMessageBox.warning(self, "Waring", "ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาติดต่อผู้ดูแลระบบ")
         self.form_connectDB.show()
-        # self.clicker()
 
-    def clicker(self):
-        self.ui.lineEdit_dbname.setText("tttt")
 
 
 
@@ -56,8 +53,16 @@ class AppWindow(QMainWindow, Ui_Login):
         if username == 'admin' and passwd == 'demo':
             self.form_export = QtWidgets.QMainWindow()
             self.ui = Ui_export()
+
             self.ui.setupUi(self.form_export)
+
+
             self.form_export.show() # show login
+
+            # self.ui.label_show.setText("testsend") # test send form
+
+
+
             self.hide() # hide login
 
 
