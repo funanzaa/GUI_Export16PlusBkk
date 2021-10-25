@@ -448,7 +448,23 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Setting</string>
+    </property>
+    <addaction name="action"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
+  <action name="action">
+   <property name="icon">
+    <iconset resource="../images/MainImages.qrc">
+     <normaloff>:/images/user-16.png</normaloff>:/images/user-16.png</iconset>
+   </property>
+   <property name="text">
+    <string>User</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../images/MainImages.qrc"/>
