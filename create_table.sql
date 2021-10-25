@@ -11,8 +11,11 @@ CREATE TABLE export_employee
    employee_authentication_id character varying(255)
 );
 
-INSERT INTO public.export_employee (employee_login, employee_password, employee_active, employee_firstname, employee_lastname, employee_authentication_id) VALUES('admin', 'demo', 'admin', 'admin', '1', '1');
-INSERT INTO public.export_employee (employee_login, employee_password, employee_active, employee_firstname, employee_lastname, employee_authentication_id) VALUES('test', 'test', 'ทดสอบ', 'ทดสอบ', '1', '2');
+INSERT INTO public.export_employee (employee_login, employee_password, employee_active, employee_firstname, employee_lastname, employee_authentication_id) VALUES('test', 'test', '1', 'ทดสอบ', 'ทดสอบ', '2');
+INSERT INTO public.export_employee (employee_login, employee_password, employee_active, employee_firstname, employee_lastname, employee_authentication_id) VALUES('admin', 'demo', '1', 'ผู้ดูแลระบบ', 'ผู้ดูแลระบบ', '1');
+
+
+
 
 
 CREATE TABLE export_employee_authentication (
