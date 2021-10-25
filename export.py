@@ -10,6 +10,9 @@ from ExportFile import DataBase
 from PyQt5.QtWidgets import *
 
 
+
+
+
 class Ui_export(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -27,7 +30,7 @@ class Ui_export(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.label_show = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily("TH SarabunPSK")
+        font.setFamily("Segoe UI Black")
         font.setPointSize(17)
         font.setBold(True)
         font.setWeight(75)
@@ -277,7 +280,20 @@ class Ui_export(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 915, 26))
         self.menubar.setObjectName("menubar")
+
+        #####  menu ##########
+        self.menu = QtWidgets.QMenu(self.menubar)
+        self.menu.setObjectName("menu")
         MainWindow.setMenuBar(self.menubar)
+        self.action = QtWidgets.QAction(MainWindow)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("images/user-16.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action.setIcon(icon2)
+        self.action.setObjectName("action")
+        self.menu.addAction(self.action)
+        self.menubar.addAction(self.menu.menuAction())
+        ##############
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -354,8 +370,16 @@ class Ui_export(object):
         if status:
             msg.info("Export {} Success!! \n{} ".format(nameFile, dir))
 
-    def setText(self, text):
-        self.label_show.setText(text)
+
+
+    def chkPermission(self, text):
+
+        if text == '1': # check permission admin
+            _translate = QtCore.QCoreApplication.translate
+            self.menu.setTitle(_translate("MainWindow", "Setting"))
+            self.action.setText(_translate("MainWindow", "User"))
+
+
 
     def clearText(self):
         self.label_show.clear()
@@ -429,3 +453,7 @@ class Ui_export(object):
         self.label_2.setText(_translate("MainWindow", "To"))
         self.dateEdit_to.setDisplayFormat(_translate("MainWindow", "dd-MM-yyyy"))
         self.pushButton.setText(_translate("MainWindow", "Export"))
+
+        ####  menu #######
+        # self.menu.setTitle(_translate("MainWindow", "Setting"))
+        # self.action.setText(_translate("MainWindow", "User"))

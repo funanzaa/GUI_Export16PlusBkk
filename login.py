@@ -92,7 +92,7 @@ class Ui_Login(object):
 
         readDB = DataBase()
         nameUser = readDB.checkUser(username, passwd)
-        # print(nameUser)
+
         # print(nameUser[0])
         # print(nameUser[1])
 
@@ -104,6 +104,9 @@ class Ui_Login(object):
             self.form_export.setWindowTitle("Export e-Claim {} ({})".format(version, nameUser[1]))
 
             self.form_export.show()
+
+            self.ui.chkPermission(nameUser[0]) # send permission
+
             Login.close()
 
 
